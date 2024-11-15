@@ -165,7 +165,7 @@ function App() {
 
                 <div>
                     <Typography variant="h6" gutterBottom>
-                        Added Products:
+                        Summary:
                     </Typography>
 
                     <Box sx={{ marginBottom: 2 }}>
@@ -198,7 +198,7 @@ function App() {
 
                     <Box sx={{ marginBottom: 2 }}>
                         <Typography variant="body1" color="text.secondary">
-                            Total:
+                            Subtotal:
                         </Typography>
                         <Typography variant="body1" color="text.primary" fontWeight="bold" textAlign="right">
                             €{totalAmount.toFixed(2)}
@@ -218,7 +218,7 @@ function App() {
 
                     <Box sx={{ marginBottom: 2 }}>
                         <Typography variant="h6" color="text.secondary">
-                            Final Price:
+                            Estimated Total:
                         </Typography>
                         <Typography variant="h6" color="primary" fontWeight="bold" textAlign="right">
                             €{finalPrice.toFixed(2)}
