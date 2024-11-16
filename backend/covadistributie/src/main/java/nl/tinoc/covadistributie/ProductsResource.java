@@ -11,9 +11,9 @@ public class ProductsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getProducts() {
         List<ProductDTO> products = Arrays.asList(
-                new ProductDTO("Product 1", 10.0, 0),
-                new ProductDTO("Product 2", 20.0, 0),
-                new ProductDTO("Product 3", 30.0, 0)
+                new ProductDTO(1, "Wood", 10.0, 0),
+                new ProductDTO(2, "Brick", 20.0, 0),
+                new ProductDTO(3, "Metal", 30.0, 0)
         );
 
         return Response.ok(products).build();

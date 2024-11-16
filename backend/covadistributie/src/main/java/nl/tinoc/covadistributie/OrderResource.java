@@ -15,7 +15,6 @@ public class OrderResource {
         double vatAmount = 0;
         double finalPrice = 0;
 
-        // Example VAT rate (e.g., 21%)
         double vatRate = 0.21;
 
         for (ProductDTO product : orderDTO.getProducts()) {
