@@ -15,7 +15,7 @@ function ProductSelector({ availableProducts, product, setProduct, error }) {
         >
             {availableProducts.map((prod) => (
                 <MenuItem key={prod.id} value={prod.name}>
-                    {prod.name} - €{prod.price}
+                    {prod.name}
                 </MenuItem>
             ))}
         </TextField>

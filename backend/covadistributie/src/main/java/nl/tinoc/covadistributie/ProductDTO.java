@@ -5,12 +5,17 @@ public class ProductDTO {
     private double price;
     private int quantity;
     private int id;
+    private int vat;
 
-    public ProductDTO(int id, String name, double price, int quantity) {
+    public ProductDTO() {
+    }
+
+    public ProductDTO(int id, String name, double price, int quantity, int vat) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.vat = vat;
     }
 
     public int getId() {
@@ -43,5 +48,13 @@ public class ProductDTO {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getVat() {
+        return vat;
+    }
+
+    public void setVat(int vat) {
+        this.vat = vat;
     }
 }

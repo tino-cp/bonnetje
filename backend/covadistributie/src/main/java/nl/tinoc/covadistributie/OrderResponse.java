@@ -2,12 +2,14 @@ package nl.tinoc.covadistributie;
 
 public class OrderResponse {
     private double totalAmount;
-    private double vatAmount;
+    private double vatHigh;
+    private double vatLow;
     private double finalPrice;
 
-    public OrderResponse(double totalAmount, double vatAmount, double finalPrice) {
+    public OrderResponse(double totalAmount, double vatHigh, double vatLow, double finalPrice) {
         this.totalAmount = totalAmount;
-        this.vatAmount = vatAmount;
+        this.vatHigh = vatHigh;
+        this.vatLow = vatLow;
         this.finalPrice = finalPrice;
     }
 
@@ -15,8 +17,12 @@ public class OrderResponse {
         return totalAmount;
     }
 
-    public double getVatAmount() {
-        return vatAmount;
+    public double getVatHigh() {
+        return vatHigh;
+    }
+
+    public double getVatLow() {
+        return vatLow;
     }
 
     public double getFinalPrice() {
