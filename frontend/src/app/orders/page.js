@@ -36,8 +36,9 @@ export default function App() {
                 setAvailableProducts(data);
 
                 if (data.length > 0 && !product.name) {
-                    setProduct({ name: data[0].name, quantity: 1, price: data[0].price, vat: data[0].vat });
+                    setProduct({ name: '', quantity: 1, price: 0, vat: 0 });
                 }
+
                 setIsFetchingProducts(false);
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -50,10 +51,12 @@ export default function App() {
     }, []);
 
     const handleAddProduct = async () => {
-        if (!product.name || product.quantity <= 0) {
+        if (!product.name) {
             setError('Please select a product before adding it to the order');
             return;
         }
+
+        setError('');
 
         const selectedProduct = availableProducts.find((p) => p.name === product.name);
         if (selectedProduct && product.quantity > 0) {
@@ -94,13 +97,6 @@ export default function App() {
             console.error('Error:', error);
             setError('There was an error with your order calculation.');
         }
-    };
-
-    const handleDeleteProduct = async (productId) => {
-        const updatedProducts = products.filter(prod => prod.id !== productId);
-        setProducts(updatedProducts);
-
-        await calculateOrder(updatedProducts);
     };
 
 
@@ -149,7 +145,7 @@ export default function App() {
                     Add Product
                 </Button>
 
-                <ProductSummary products={products} onDeleteProduct={handleDeleteProduct} />
+                <ProductSummary products={products} setProducts={setProducts} calculateOrder={calculateOrder} />
 
                 <OrderFooter totalAmount={totalAmount} finalPrice={finalPrice} vatBreakdown={vatBreakdown} />
             </Box>

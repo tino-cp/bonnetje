@@ -10,11 +10,10 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
-    public ProductDTO(int id, String name, double price, int quantity, int vat) {
+    public ProductDTO(int id, String name, double price, int vat) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.quantity = quantity;
         this.vat = vat;
     }
 

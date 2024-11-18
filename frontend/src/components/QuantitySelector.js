@@ -25,7 +25,6 @@ function QuantitySelector({ product, setProduct }) {
                     </MenuItem>
                 ))}
             </Select>
-            {product.quantity < 1 && <FormHelperText>Quantity must be at least 1</FormHelperText>}
         </FormControl>
     );
 }

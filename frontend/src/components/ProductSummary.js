@@ -1,8 +1,27 @@
-import React from 'react';
-import { Box, Typography, Divider, Grid2, IconButton } from '@mui/material';
+import React, {useEffect} from 'react';
+import {Box, Typography, Divider, Grid2, IconButton, MenuItem, Select} from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 
-function ProductSummary({ products, onDeleteProduct }) {
+function ProductSummary({ products, setProducts, calculateOrder}) {
+    const handleDeleteProduct = async (productId) => {
+        const updatedProducts = products.filter(prod => prod.id !== productId);
+        setProducts(updatedProducts);
+
+        await calculateOrder(updatedProducts);
+    };
+
+    const handleQuantityChange = (prodId, newQuantity) => {
+        setProducts((prevProducts) =>
+            prevProducts.map((prod) =>
+                prod.id === prodId ? { ...prod, quantity: newQuantity } : prod
+            )
+        );
+    };
+
+    useEffect(() => {
+        calculateOrder(products);
+    }, [products, calculateOrder]);
+
     return (
         <Box sx={{ marginBottom: 2 }}>
             {products.map((prod) => (
@@ -18,7 +37,7 @@ function ProductSummary({ products, onDeleteProduct }) {
                 >
                     <Grid2 container spacing={2}>
                         <Grid2 sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <IconButton className="deleteButton" onClick={() => onDeleteProduct(prod.id)} sx={{ color: 'red'}}>
+                            <IconButton className="deleteButton" onClick={() => handleDeleteProduct(prod.id)} sx={{ color: 'red'}}>
                                 <CloseIcon />
                             </IconButton>
                         </Grid2>
@@ -26,8 +45,32 @@ function ProductSummary({ products, onDeleteProduct }) {
                             <Typography color="text.primary" fontWeight="bold" noWrap>
                                 {prod.name}
                             </Typography>
-                            <Typography color="text.secondary" noWrap>
-                                Quantity: {prod.quantity}
+                            <Typography component="div" color="text.secondary" noWrap>
+                                Quantity:
+                                <Select
+                                    value={prod.quantity || ''}
+                                    onChange={(e) => handleQuantityChange(prod.id, e.target.value)}
+                                    sx={{
+                                        width: 60,
+                                        height: 30,
+                                        marginLeft: 1,
+                                        marginTop: 1
+                                    }}
+
+                                    MenuProps={{
+                                        PaperProps: {
+                                            style: {
+                                                maxHeight: 200
+                                            },
+                                        },
+                                    }}
+                                >
+                                    {Array.from({ length: 99 }, (_, i) => (
+                                        <MenuItem key={i + 1} value={i + 1}>
+                                            {i + 1}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
                             </Typography>
                         </Grid2>
 

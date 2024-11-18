@@ -12,6 +12,7 @@ function ProductSelector({ availableProducts, product, setProduct, error }) {
             margin="normal"
             variant="outlined"
             error={!!error}
+            placeholder="Select a product"
         >
             {availableProducts.map((prod) => (
                 <MenuItem key={prod.id} value={prod.name}>
