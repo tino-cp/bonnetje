@@ -1,4 +1,4 @@
-package nl.tinoc.covadistributie;
+package nl.tinoc.bonnetje;
 
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerResponseContext;

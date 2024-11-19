@@ -1,4 +1,4 @@
-package nl.tinoc.covadistributie;
+package nl.tinoc.bonnetje;
 
 public class ProductDTO {
     private String name;

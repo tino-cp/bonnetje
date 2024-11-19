@@ -1,4 +1,4 @@
-package nl.tinoc.covadistributie;
+package nl.tinoc.bonnetje;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

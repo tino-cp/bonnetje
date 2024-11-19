@@ -1,4 +1,4 @@
-package nl.tinoc.covadistributie;
+package nl.tinoc.bonnetje;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

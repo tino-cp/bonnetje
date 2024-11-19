@@ -9,7 +9,7 @@ export default function Home() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:8080/covadistributie/test/helloWorld')
+    fetch('http://localhost:8080/bonnetje/test/helloWorld')
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
