@@ -6,6 +6,7 @@ public class ProductDTO {
     private int quantity;
     private int id;
     private int vat;
+    private ProductDiscountDTO discount;
 
     public ProductDTO() {
     }
@@ -55,5 +56,13 @@ public class ProductDTO {
 
     public void setVat(int vat) {
         this.vat = vat;
+    }
+
+    public ProductDiscountDTO getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(ProductDiscountDTO discount) {
+        this.discount = discount;
     }
 }

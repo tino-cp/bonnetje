@@ -1,32 +1,39 @@
-import React, { useState, useEffect} from 'react';
-import {Box, Typography, Divider, Grid2, IconButton, Select, Collapse} from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Divider, Grid2, IconButton, Select, Collapse } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 
-function ProductSummary({ products, setProducts, calculateOrder, generateMenuItems, isMainCollapsed }) {
-    const [visibleProducts, setVisibleProducts] = useState(products.map((p) => p.id));
+function ProductSummary({ products, setProducts, calculateOrder, generateMenuItems, isMainCollapsed, orderResponse }) {    const [visibleProducts, setVisibleProducts] = useState(products.map((p) => p.id));
+    const [isModified, setIsModified] = useState(false);
 
-
-    const handleDeleteProduct = async (productId) => {
+    const handleDeleteProduct = (productId) => {
         const updatedProducts = products.filter((prod) => prod.id !== productId);
         setVisibleProducts((prev) => prev.filter((id) => id !== productId));
-        calculateOrder(updatedProducts);
         setProducts(updatedProducts);
+        setIsModified(true);
     };
 
     const handleQuantityChange = (prodId, newQuantity) => {
-        setProducts((prevProducts) =>
-            prevProducts.map((prod) =>
+        setProducts((prevProducts) => {
+            const updatedProducts = prevProducts.map((prod) =>
                 prod.id === prodId ? { ...prod, quantity: newQuantity } : prod
-            )
-        );
+            );
+            return updatedProducts;
+        });
+        setIsModified(true);
     };
+
+    useEffect(() => {
+        if (isModified) {
+            calculateOrder(products)
+            setIsModified(false);
+        }
+    }, [isModified, products, calculateOrder]);
 
     useEffect(() => {
         if (isMainCollapsed) {
             setVisibleProducts(products.map((p) => p.id));
-            calculateOrder(products);
         }
-    }, [products, calculateOrder]);
+    }, [products, isMainCollapsed]);
 
     return (
         <Box sx={{ marginBottom: 2 }}>
@@ -51,62 +58,78 @@ function ProductSummary({ products, setProducts, calculateOrder, generateMenuIte
             </Grid2>
             <Divider sx={{ marginY: 2}} />
 
-            {products.map((prod) => (
-                <Collapse key={prod.id} in={visibleProducts.includes(prod.id)}>
-                    <Box>
-                    <Grid2 container spacing={2}>
-                        <Grid2 sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <IconButton className="deleteButton" onClick={() => handleDeleteProduct(prod.id)} sx={{ color: 'red'}}>
-                                <CloseIcon />
-                            </IconButton>
-                        </Grid2>
-                        <Grid2 size={6} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                            <Typography color="text.secondary" fontWeight="bold" noWrap>
-                                {prod.name}
-                            </Typography>
-                            <Typography component="div" color="text.secondary" noWrap>
-                                Aantal:
-                                <Select
-                                    value={prod.quantity}
-                                    onChange={(e) => handleQuantityChange(prod.id, e.target.value)}
-                                    sx={{
-                                        width: 60,
-                                        height: 30,
-                                        marginLeft: 1,
-                                        marginTop: 1
-                                    }}
+            {products.map((prod) => {
+                const productResponse = orderResponse.productResponses.find((response) => response.id === prod.id);
+                return (
+                    <Collapse key={prod.id} in={visibleProducts.includes(prod.id)}>
+                        <Box>
+                            <Grid2 container spacing={2}>
+                                <Grid2 sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                    <IconButton className="deleteButton" onClick={() => handleDeleteProduct(prod.id)}
+                                                sx={{color: 'red'}}>
+                                        <CloseIcon/>
+                                    </IconButton>
+                                </Grid2>
+                                <Grid2 size={6}
+                                       sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                                    <Typography color="text.secondary" fontWeight="bold" noWrap>
+                                        {prod.name}
+                                    </Typography>
+                                    <Typography component="div" color="text.secondary" noWrap>
+                                        Aantal:
+                                        <Select
+                                            value={prod.quantity}
+                                            onChange={(e) => handleQuantityChange(prod.id, e.target.value)}
+                                            sx={{
+                                                width: 60,
+                                                height: 30,
+                                                marginLeft: 1,
+                                                marginTop: 1
+                                            }}
+                                            MenuProps={{
+                                                PaperProps: {style: {maxHeight: 200}}
+                                            }}
+                                        >
+                                            {generateMenuItems()}
+                                        </Select>
+                                    </Typography>
+                                </Grid2>
 
-                                    MenuProps={{
-                                        PaperProps: {
-                                            style: {
-                                                maxHeight: 200
-                                            },
-                                        },
-                                    }}
-                                >
-                                {generateMenuItems()}
-                                </Select>
-                            </Typography>
-                        </Grid2>
+                                {prod.quantity > 1 && (
+                                    <Grid2 size="grow" sx={{display: 'flex', justifyContent: 'center'}}>
+                                        <Typography color="text.primary">
+                                            €{prod.price.toFixed(2)}
+                                        </Typography>
+                                    </Grid2>
+                                )}
 
-                        {prod.quantity > 1 && (
-                            <Grid2 size="grow" sx={{ display: 'flex', justifyContent: 'center' }}>
-                                <Typography color="text.primary">
-                                    €{prod.price.toFixed(2)}
-                                </Typography>
+                                <Grid2 size="grow" sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                                    <Typography color="text.primary">
+                                        €{(prod.price * prod.quantity).toFixed(2)}
+                                    </Typography>
+                                </Grid2>
                             </Grid2>
-                        )}
 
-                        <Grid2 size="grow" sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <Typography color="text.primary">
-                                €{(prod.quantity * prod.price).toFixed(2)}
-                            </Typography>
-                        </Grid2>
-                    </Grid2>
-                    <Divider sx={{ marginY: 1 }} />
-                </Box>
-                </Collapse>
-            ))}
+                            {productResponse && productResponse.discount > 0 && (
+                                <Grid2 container spacing={2} sx={{ marginTop: 1 }} key={productResponse.id}>
+                                    <Grid2 size="grow" sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', marginLeft: 7}}>
+                                        <Typography color="text.secondary" fontStyle="italic" noWrap>
+                                            Korting ({prod.discount.discount}%) :
+                                        </Typography>
+                                    </Grid2>
+                                    <Grid2 size="grow" sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                                        <Typography color="green" fontStyle="italic">
+                                            -€{productResponse.discount.toFixed(2)}
+                                        </Typography>
+                                    </Grid2>
+                                </Grid2>
+                            )}
+
+                            <Divider sx={{marginY: 1}}/>
+                        </Box>
+                    </Collapse>
+                );
+            })}
         </Box>
     );
 }

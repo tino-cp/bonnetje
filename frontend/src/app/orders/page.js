@@ -21,7 +21,7 @@ export default function App() {
         vatTotalLow: 0,
         vatTotalHigh: 0
     });
-
+    const [orderResponse, setOrderResponse] = useState({ productResponses: [] });
     const [isMainCollapsed, setIsMainCollapsed] = useState(false);
 
     useEffect(() => {
@@ -93,16 +93,12 @@ export default function App() {
                 body: JSON.stringify(orderDTO),
             });
 
-            if (!response.ok) {
-                setError('Error calculating order. Please check the server response.');
-                return;
-            }
-
             const data = await response.json();
 
             setTotalAmount(data.totalAmount);
             setFinalPrice(data.finalPrice);
             setVatBreakdown({ vatHigh: data.vatHigh, vatLow: data.vatLow, vatTotalLow: data.vatTotalLow, vatTotalHigh: data.vatTotalHigh });
+            setOrderResponse(data);
         } catch (error) {
             console.error('Error:', error);
             setError('There was an error with your order calculation.');
@@ -110,7 +106,7 @@ export default function App() {
     };
 
     const handleMainCollapseEntered = () => {
-        setIsMainCollapsed(true); // Start the individual product collapse animations
+        setIsMainCollapsed(true);
     };
 
     function generateMenuItems() {
@@ -169,7 +165,7 @@ export default function App() {
 
                 <Collapse in={products.length > 0} onEntered={handleMainCollapseEntered}>
                     <Box>
-                        <ProductSummary products={products} setProducts={setProducts} calculateOrder={calculateOrder} generateMenuItems={generateMenuItems} isMainCollapsed={isMainCollapsed} />
+                        <ProductSummary products={products} setProducts={setProducts} calculateOrder={calculateOrder} generateMenuItems={generateMenuItems} isMainCollapsed={isMainCollapsed} orderResponse={orderResponse}/>
                         <OrderFooter totalAmount={totalAmount} finalPrice={finalPrice} vatBreakdown={vatBreakdown} />
                     </Box>
                 </Collapse>
