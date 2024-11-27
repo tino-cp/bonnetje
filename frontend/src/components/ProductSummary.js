@@ -14,13 +14,13 @@ function ProductSummary({ products, setProducts, calculateOrder, generateMenuIte
 
     const handleQuantityChange = (prodId, newQuantity) => {
         setProducts((prevProducts) => {
-            const updatedProducts = prevProducts.map((prod) =>
+            return prevProducts.map((prod) =>
                 prod.id === prodId ? { ...prod, quantity: newQuantity } : prod
             );
-            return updatedProducts;
         });
         setIsModified(true);
     };
+
 
     useEffect(() => {
         if (isModified) {
@@ -59,7 +59,8 @@ function ProductSummary({ products, setProducts, calculateOrder, generateMenuIte
             <Divider sx={{ marginY: 2}} />
 
             {products.map((prod) => {
-                const productResponse = orderResponse.productResponses.find((response) => response.id === prod.id);
+                const productSummary = orderResponse?.productSummaries.find((summary) => summary.productId === prod.id);
+
                 return (
                     <Collapse key={prod.id} in={visibleProducts.includes(prod.id)}>
                         <Box>
@@ -70,8 +71,7 @@ function ProductSummary({ products, setProducts, calculateOrder, generateMenuIte
                                         <CloseIcon/>
                                     </IconButton>
                                 </Grid2>
-                                <Grid2 size={6}
-                                       sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                                <Grid2 size={6} sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                                     <Typography color="text.secondary" fontWeight="bold" noWrap>
                                         {prod.name}
                                     </Typography>
@@ -105,21 +105,21 @@ function ProductSummary({ products, setProducts, calculateOrder, generateMenuIte
 
                                 <Grid2 size="grow" sx={{display: 'flex', justifyContent: 'flex-end'}}>
                                     <Typography color="text.primary">
-                                        €{(prod.price * prod.quantity).toFixed(2)}
+                                        €{productSummary?.subTotal.toFixed(2)}
                                     </Typography>
                                 </Grid2>
                             </Grid2>
 
-                            {productResponse && productResponse.discount > 0 && (
-                                <Grid2 container spacing={2} sx={{ marginTop: 1 }} key={productResponse.id}>
-                                    <Grid2 size="grow" sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', marginLeft: 7}}>
-                                        <Typography color="text.secondary" fontStyle="italic" noWrap>
-                                            Korting ({prod.discount.discount}%) :
+                            {productSummary?.discountAmount > 0 && (
+                                <Grid2 container spacing={2} sx={{ marginTop: 1 }} key={productSummary.productId}>
+                                    <Grid2 size={6} sx={{display: 'flex', justifyContent: 'flex-start', marginLeft: 7}}>
+                                        <Typography color="text.secondary" fontStyle="italic">
+                                            Korting toegepast ({prod.discount.discount}%):
                                         </Typography>
                                     </Grid2>
                                     <Grid2 size="grow" sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                                        <Typography color="green" fontStyle="italic">
-                                            -€{productResponse.discount.toFixed(2)}
+                                        <Typography color="success.light" fontStyle="italic">
+                                            -€{productSummary.discountAmount.toFixed(2)}
                                         </Typography>
                                     </Grid2>
                                 </Grid2>

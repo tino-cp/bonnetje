@@ -1,4 +1,4 @@
-package nl.tinoc.bonnetje;
+package nl.tinoc.bonnetje.data.dto;
 
 public class ProductDTO {
     private String name;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/backend/bonnetje/src/main/java/nl/tinoc/bonnetje/ProductDAO.java" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/backend/bonnetje/src/main/java/nl/tinoc/bonnetje/bonnetje.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/backend/bonnetje/src/main/java/nl/tinoc/bonnetje/data/dao/ProductDAO.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/backend/bonnetje/src/main/java/nl/tinoc/bonnetje/util/database/bonnetje.sql" dialect="MySQL" />
     <file url="PROJECT" dialect="MySQL" />
   </component>
 </project>

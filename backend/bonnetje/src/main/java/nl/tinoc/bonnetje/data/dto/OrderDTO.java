@@ -1,4 +1,4 @@
-package nl.tinoc.bonnetje;
+package nl.tinoc.bonnetje.data.dto;
 
 import java.util.List;
 

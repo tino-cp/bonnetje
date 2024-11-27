@@ -1,4 +1,6 @@
-package nl.tinoc.bonnetje;
+package nl.tinoc.bonnetje.util.database;
+
+import nl.tinoc.bonnetje.exception.DatabasePropertiesLoadException;
 
 import java.io.IOException;
 import java.io.InputStream;

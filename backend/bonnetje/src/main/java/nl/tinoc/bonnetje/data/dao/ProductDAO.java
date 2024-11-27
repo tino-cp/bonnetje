@@ -1,4 +1,7 @@
-package nl.tinoc.bonnetje;
+package nl.tinoc.bonnetje.data.dao;
+
+import nl.tinoc.bonnetje.data.dto.ProductDTO;
+import nl.tinoc.bonnetje.data.dto.ProductDiscountDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -6,7 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static nl.tinoc.bonnetje.DatabaseService.getConnection;
+import static nl.tinoc.bonnetje.util.database.DatabaseService.getConnection;
 
 public class ProductDAO {
 

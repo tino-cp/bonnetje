@@ -1,4 +1,4 @@
-package nl.tinoc.bonnetje;
+package nl.tinoc.bonnetje.util.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

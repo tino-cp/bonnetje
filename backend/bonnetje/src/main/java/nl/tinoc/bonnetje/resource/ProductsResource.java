@@ -1,8 +1,9 @@
-package nl.tinoc.bonnetje;
+package nl.tinoc.bonnetje.resource;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
+import nl.tinoc.bonnetje.service.ProductService;
 
 @Path("/products")
 public class ProductsResource {

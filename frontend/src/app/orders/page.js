@@ -21,7 +21,7 @@ export default function App() {
         vatTotalLow: 0,
         vatTotalHigh: 0
     });
-    const [orderResponse, setOrderResponse] = useState({ productResponses: [] });
+    const [orderResponse, setOrderResponse] = useState();
     const [isMainCollapsed, setIsMainCollapsed] = useState(false);
 
     useEffect(() => {

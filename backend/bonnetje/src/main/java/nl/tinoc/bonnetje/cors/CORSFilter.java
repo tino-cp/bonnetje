@@ -1,4 +1,4 @@
-package nl.tinoc.bonnetje;
+package nl.tinoc.bonnetje.cors;
 
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerResponseContext;

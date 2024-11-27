@@ -1,6 +1,8 @@
-package nl.tinoc.bonnetje;
+package nl.tinoc.bonnetje.service;
 
 import jakarta.inject.Inject;
+import nl.tinoc.bonnetje.data.dao.ProductDAO;
+import nl.tinoc.bonnetje.data.dto.ProductDTO;
 
 import java.util.List;
 import java.util.logging.Logger;
