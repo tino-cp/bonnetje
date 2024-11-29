@@ -4,5 +4,5 @@ import nl.tinoc.bonnetje.data.dto.OrderDTO;
 import nl.tinoc.bonnetje.data.dto.OrderSummaryDTO;
 
 public interface OrderService {
-    OrderSummaryDTO calculateOrder(OrderDTO orderDTO) throws Exception;
+    OrderSummaryDTO calculateOrder(OrderDTO orderDTO);
 }

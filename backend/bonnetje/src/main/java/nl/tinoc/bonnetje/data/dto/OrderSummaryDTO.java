@@ -1,18 +1,20 @@
 package nl.tinoc.bonnetje.data.dto;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class OrderSummaryDTO {
-    private BigDecimal totalAmount;
-    private BigDecimal vatHigh;
-    private BigDecimal vatLow;
-    private BigDecimal vatTotalHigh;
-    private BigDecimal vatTotalLow;
-    private BigDecimal finalPrice;
+    private double totalAmount;
+    private double vatHigh;
+    private double vatLow;
+    private double vatTotalHigh;
+    private double vatTotalLow;
+    private double finalPrice;
     private List<ProductSummaryDTO> productSummaries;
 
-    public OrderSummaryDTO(BigDecimal totalAmount, BigDecimal vatLow, BigDecimal vatHigh, BigDecimal vatTotalHigh, BigDecimal vatTotalLow, BigDecimal finalPrice, List<ProductSummaryDTO> productSummaries) {
+    public OrderSummaryDTO() {
+    }
+
+    public OrderSummaryDTO(double totalAmount, double vatLow, double vatHigh, double vatTotalHigh, double vatTotalLow, double finalPrice, List<ProductSummaryDTO> productSummaries) {
         this.totalAmount = totalAmount;
         this.vatHigh = vatHigh;
         this.vatLow = vatLow;
@@ -22,51 +24,51 @@ public class OrderSummaryDTO {
         this.productSummaries = productSummaries;
     }
 
-    public BigDecimal getTotalAmount() {
+    public double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public BigDecimal getVatHigh() {
+    public double getVatHigh() {
         return vatHigh;
     }
 
-    public void setVatHigh(BigDecimal vatHigh) {
+    public void setVatHigh(double vatHigh) {
         this.vatHigh = vatHigh;
     }
 
-    public BigDecimal getVatLow() {
+    public double getVatLow() {
         return vatLow;
     }
 
-    public void setVatLow(BigDecimal vatLow) {
+    public void setVatLow(double vatLow) {
         this.vatLow = vatLow;
     }
 
-    public BigDecimal getVatTotalHigh() {
+    public double getVatTotalHigh() {
         return vatTotalHigh;
     }
 
-    public void setVatTotalHigh(BigDecimal vatTotalHigh) {
+    public void setVatTotalHigh(double vatTotalHigh) {
         this.vatTotalHigh = vatTotalHigh;
     }
 
-    public BigDecimal getVatTotalLow() {
+    public double getVatTotalLow() {
         return vatTotalLow;
     }
 
-    public void setVatTotalLow(BigDecimal vatTotalLow) {
+    public void setVatTotalLow(double vatTotalLow) {
         this.vatTotalLow = vatTotalLow;
     }
 
-    public BigDecimal getFinalPrice() {
+    public double getFinalPrice() {
         return finalPrice;
     }
 
-    public void setFinalPrice(BigDecimal finalPrice) {
+    public void setFinalPrice(double finalPrice) {
         this.finalPrice = finalPrice;
     }
 

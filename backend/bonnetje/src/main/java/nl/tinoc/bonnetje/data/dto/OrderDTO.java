@@ -3,13 +3,13 @@ package nl.tinoc.bonnetje.data.dto;
 import java.util.List;
 
 public class OrderDTO {
-    private List<ProductDTO> products;
+    private List<ProductDTO> productDTOS;
 
     public List<ProductDTO> getProducts() {
-        return products;
+        return productDTOS;
     }
 
-    public void setProducts(List<ProductDTO> products) {
-        this.products = products;
+    public void setProducts(List<ProductDTO> productDTOS) {
+        this.productDTOS = productDTOS;
     }
 }

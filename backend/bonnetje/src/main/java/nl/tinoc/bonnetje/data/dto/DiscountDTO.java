@@ -1,14 +1,14 @@
 package nl.tinoc.bonnetje.data.dto;
 
-public class ProductDiscountDTO {
+public class DiscountDTO {
     private int productId;
     private double discount;
     private int quantity;
 
-    public ProductDiscountDTO() {
+    public DiscountDTO() {
     }
 
-    public ProductDiscountDTO(int productId, double discount, int quantity) {
+    public DiscountDTO(int productId, double discount, int quantity) {
         this.productId = productId;
         this.discount = discount;
         this.quantity = quantity;

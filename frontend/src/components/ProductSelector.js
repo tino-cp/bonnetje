@@ -4,9 +4,9 @@ import { FormControl, InputLabel, Select, MenuItem, Typography, Box } from '@mui
 function ProductSelector({ availableProducts, product, setProduct, error }) {
     return (
         <FormControl fullWidth margin="normal" variant="outlined" error={!!error}>
-            <InputLabel id="product-label">Product</InputLabel>
+            <InputLabel id="productDTO-label">Product</InputLabel>
             <Select
-                labelId="product-label"
+                labelId="productDTO-label"
                 value={product.name}
                 onChange={(e) => setProduct({ ...product, name: e.target.value })}
                 label="Product"

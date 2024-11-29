@@ -1,17 +1,17 @@
-package nl.tinoc.bonnetje.data.dto;
+package nl.tinoc.bonnetje.data.domain;
 
-public class ProductDTO {
+public class Product {
+    private int id;
     private String name;
     private double price;
     private int quantity;
-    private int id;
     private int vat;
-    private DiscountDTO discount;
+    private Discount discount;
 
-    public ProductDTO() {
+    public Product() {
     }
 
-    public ProductDTO(int id, String name, double price, int quantity, int vat, DiscountDTO discount) {
+    public Product(int id, String name, double price, int quantity, int vat, Discount discount) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -60,11 +60,11 @@ public class ProductDTO {
         this.vat = vat;
     }
 
-    public DiscountDTO getDiscount() {
+    public Discount getDiscount() {
         return discount;
     }
 
-    public void setDiscount(DiscountDTO discount) {
+    public void setDiscount(Discount discount) {
         this.discount = discount;
     }
 }

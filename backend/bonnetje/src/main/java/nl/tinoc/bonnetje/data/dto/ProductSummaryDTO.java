@@ -1,17 +1,19 @@
 package nl.tinoc.bonnetje.data.dto;
 
-import java.math.BigDecimal;
 
 public class ProductSummaryDTO {
     private int productId;
     private String productName;
-    private BigDecimal subTotal;
+    private double subTotal;
     private int quantity;
     private int vatRate;
-    private BigDecimal discountAmount;
-    private BigDecimal vatAmount;
+    private double discountAmount;
+    private double vatAmount;
 
-    public ProductSummaryDTO(int productId, String productName, BigDecimal subTotal, int quantity, int vatRate, BigDecimal discountAmount, BigDecimal vatAmount) {
+    public ProductSummaryDTO() {
+    }
+
+    public ProductSummaryDTO(int productId, String productName, double subTotal, int quantity, int vatRate, double discountAmount, double vatAmount) {
         this.productId = productId;
         this.productName = productName;
         this.subTotal = subTotal;
@@ -37,11 +39,11 @@ public class ProductSummaryDTO {
         this.productName = productName;
     }
 
-    public BigDecimal getSubTotal() {
+    public double getSubTotal() {
         return subTotal;
     }
 
-    public void setSubTotal(BigDecimal subTotal) {
+    public void setSubTotal(double subTotal) {
         this.subTotal = subTotal;
     }
 
@@ -61,19 +63,19 @@ public class ProductSummaryDTO {
         this.vatRate = vatRate;
     }
 
-    public BigDecimal getDiscountAmount() {
+    public double getDiscountAmount() {
         return discountAmount;
     }
 
-    public void setDiscountAmount(BigDecimal discountAmount) {
+    public void setDiscountAmount(double discountAmount) {
         this.discountAmount = discountAmount;
     }
 
-    public BigDecimal getVatAmount() {
+    public double getVatAmount() {
         return vatAmount;
     }
 
-    public void setVatAmount(BigDecimal vatAmount) {
+    public void setVatAmount(double vatAmount) {
         this.vatAmount = vatAmount;
     }
 }
