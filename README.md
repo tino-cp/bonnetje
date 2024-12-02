@@ -1,2 +1,4 @@
-# covadistributie
+# bonnetje
+
+Een app voor bonnetjes
  

@@ -11,16 +11,8 @@ export default function App() {
     const [availableProducts, setAvailableProducts] = useState([]);
     const [products, setProducts] = useState([]);
     const [product, setProduct] = useState([]);
-    const [totalAmount, setTotalAmount] = useState(0);
-    const [finalPrice, setFinalPrice] = useState(0);
     const [isFetchingProducts, setIsFetchingProducts] = useState(true);
     const [error, setError] = useState('');
-    const [vatBreakdown, setVatBreakdown] = useState({
-        vatHigh: 0,
-        vatLow: 0,
-        vatTotalLow: 0,
-        vatTotalHigh: 0
-    });
     const [orderResponse, setOrderResponse] = useState();
     const [isMainCollapsed, setIsMainCollapsed] = useState(false);
 
@@ -94,10 +86,6 @@ export default function App() {
             });
 
             const data = await response.json();
-
-            setTotalAmount(data.totalAmount);
-            setFinalPrice(data.finalPrice);
-            setVatBreakdown({ vatHigh: data.vatHigh, vatLow: data.vatLow, vatTotalLow: data.vatTotalLow, vatTotalHigh: data.vatTotalHigh });
             setOrderResponse(data);
         } catch (error) {
             console.error('Error:', error);
@@ -140,7 +128,7 @@ export default function App() {
                     border: '1px solid',
                 }}
             >
-                <Typography variant="h4" gutterBottom align="center">
+                <Typography variant="h4" align="center" sx={{marginBottom: 2}}>
                     Bonnetje
                 </Typography>
 
@@ -154,19 +142,19 @@ export default function App() {
                 <QuantitySelector product={product} setProduct={setProduct} generateMenuItems={generateMenuItems} />
 
                 {error && (
-                    <Typography variant="body2" color="error" align="center" sx={{ my: 2 }}>
+                    <Typography variant="body2" color="error" align="center" sx={{ marginY: 2, alignItems: "center"}}>
                         {error}
                     </Typography>
                 )}
 
-                <Button variant="contained" color="primary" onClick={handleAddProduct} sx={{ my: 2 }} fullWidth>
+                <Button variant="contained" color="primary" onClick={handleAddProduct} sx={{ marginY: 2 }} fullWidth>
                     Product Toevoegen
                 </Button>
 
                 <Collapse in={products.length > 0} onEntered={handleMainCollapseEntered}>
                     <Box>
                         <ProductSummary products={products} setProducts={setProducts} calculateOrder={calculateOrder} generateMenuItems={generateMenuItems} isMainCollapsed={isMainCollapsed} orderResponse={orderResponse}/>
-                        <OrderFooter totalAmount={totalAmount} finalPrice={finalPrice} vatBreakdown={vatBreakdown} />
+                        <OrderFooter orderResponse={orderResponse}/>
                     </Box>
                 </Collapse>
             </Box>
