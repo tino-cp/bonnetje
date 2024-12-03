@@ -41,7 +41,7 @@ public class ProductDAOImpl implements ProductDAO {
         return products;
     }
 
-    private Product createProductFromResultSet(ResultSet resultSet) throws SQLException {
+    protected Product createProductFromResultSet(ResultSet resultSet) throws SQLException {
         Product product = new Product();
         product.setProductId(resultSet.getInt("product_id"));
         product.setName(resultSet.getString("product_naam"));
@@ -56,13 +56,13 @@ public class ProductDAOImpl implements ProductDAO {
         return product;
     }
 
-    private Vat createProductVatFromResultSet(ResultSet resultSet) throws SQLException {
+    protected Vat createProductVatFromResultSet(ResultSet resultSet) throws SQLException {
         Vat vat = new Vat();
         vat.setPercent(resultSet.getInt("btw_perc"));
         return vat;
     }
 
-    private Discount createProductDiscountFromResultSet(ResultSet resultSet) throws SQLException {
+    protected Discount createProductDiscountFromResultSet(ResultSet resultSet) throws SQLException {
         int minQuantity = resultSet.getInt("min_aantal");
 
         if (minQuantity > 0) {

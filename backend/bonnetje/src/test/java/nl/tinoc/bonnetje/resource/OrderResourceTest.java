@@ -30,7 +30,7 @@ class OrderResourceTest {
         MockitoAnnotations.openMocks(this);
         orderResource.setOrderService(orderService);
 
-        Logger.getLogger(ProductsResource.class.getName()).setLevel(Level.OFF);
+        Logger.getLogger(OrderResource.class.getName()).setLevel(Level.OFF);
     }
 
     @Test
@@ -64,6 +64,6 @@ class OrderResourceTest {
 
     @AfterEach
     public void tearDown() {
-        Logger.getLogger(ProductsResource.class.getName()).setLevel(Level.INFO);
+        Logger.getLogger(OrderResource.class.getName()).setLevel(Level.INFO);
     }
 }

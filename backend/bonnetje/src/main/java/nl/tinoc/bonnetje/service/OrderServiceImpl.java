@@ -44,10 +44,8 @@ public class OrderServiceImpl implements OrderService {
                 }
 
                 VatDTO vat = product.getVat();
-                if (vat != null) {
-                    vat.setAmount(vatAmount.doubleValue());
-                    product.setVat(vat);
-                }
+                vat.setAmount(vatAmount.doubleValue());
+                product.setVat(vat);
 
                 totalAmount = totalAmount.add(subTotal);
                 if (product.getVat().getPercent() == VAT_HIGH) {
