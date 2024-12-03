@@ -20,14 +20,14 @@ function ProductSelector({ availableProducts, product, setProduct, error }) {
                 }}
             >
                 {availableProducts.map((prod) => (
-                    <MenuItem key={prod.id} value={prod.name}>
+                    <MenuItem key={prod.productId} value={prod.name}>
                         <Box sx={{ display: 'flex', flexDirection: 'column', padding: 1 }}>
                             <Typography variant="body1">{prod.name}</Typography>
-                            {prod.discount && prod.discount.quantity > 0 && (
+                            {prod.discount && prod.discount.minQuantity > 0 && (
                                 <Box sx={{ backgroundColor: '#f0f8ff', padding: '4px 8px', marginTop: 1, borderRadius: 1 }}>
                                     <Typography variant="body2" color="green">
-                                        <strong>Staffelkorting:</strong> Korting van {prod.discount.discount}%
-                                        bij {prod.discount.quantity} stuks of meer.
+                                        <strong>Staffelkorting:</strong> Korting van {prod.discount.percent}%
+                                        bij {prod.discount.minQuantity} stuks of meer.
                                     </Typography>
                                 </Box>
                             )}

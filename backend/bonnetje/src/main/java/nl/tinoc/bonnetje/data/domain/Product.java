@@ -2,17 +2,18 @@ package nl.tinoc.bonnetje.data.domain;
 
 public class Product {
     private int id;
+    private int productId;
     private String name;
     private double price;
     private int quantity;
-    private int vat;
+    private Vat vat;
     private Discount discount;
 
     public Product() {
     }
 
-    public Product(int id, String name, double price, int quantity, int vat, Discount discount) {
-        this.id = id;
+    public Product(int productId, String name, double price, int quantity, Vat vat, Discount discount) {
+        this.productId = productId;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -26,6 +27,14 @@ public class Product {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -52,11 +61,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public int getVat() {
+    public Vat getVat() {
         return vat;
     }
 
-    public void setVat(int vat) {
+    public void setVat(Vat vat) {
         this.vat = vat;
     }
 

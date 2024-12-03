@@ -1,40 +1,40 @@
 package nl.tinoc.bonnetje.data.domain;
 
 public class Discount {
-    private int productId;
-    private double discountPercentage;
-    private int quantity;
+    private int percent;
+    private double amount;
+    private int minQuantity;
 
     public Discount() {
     }
 
-    public Discount(int productId, double discountPercentage, int quantity) {
-        this.productId = productId;
-        this.discountPercentage = discountPercentage;
-        this.quantity = quantity;
+    public Discount(int percent, double amount, int minQuantity) {
+        this.percent = percent;
+        this.amount = amount;
+        this.minQuantity = minQuantity;
     }
 
-    public int getProductId() {
-        return productId;
+    public int getPercent() {
+        return percent;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setPercent(int percent) {
+        this.percent = percent;
     }
 
-    public double getDiscountPercentage() {
-        return discountPercentage;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setDiscountPercentage(double discountPercentage) {
-        this.discountPercentage = discountPercentage;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getMinQuantity() {
+        return minQuantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setMinQuantity(int minQuantity) {
+        this.minQuantity = minQuantity;
     }
 }

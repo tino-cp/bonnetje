@@ -61,7 +61,7 @@ export default function App() {
         setError('');
 
         const selectedProduct = availableProducts.find((p) => p.name === product.name);
-        if (selectedProduct && product.quantity > 0) {
+        if (selectedProduct) {
             const newProduct = {
                 ...selectedProduct,
                 quantity: product.quantity,

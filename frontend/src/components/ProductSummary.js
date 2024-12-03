@@ -59,7 +59,7 @@ function ProductSummary({ products, setProducts, calculateOrder, generateMenuIte
             <Divider sx={{ marginY: 2}} />
 
             {products.map((prod) => {
-                const productSummary = orderResponse?.productSummaries.find((summary) => summary.productId === prod.id);
+                const products = orderResponse?.products.find((summary) => summary.id === prod.id);
 
                 return (
                     <Collapse key={prod.id} in={visibleProducts.includes(prod.id)}>
@@ -105,21 +105,21 @@ function ProductSummary({ products, setProducts, calculateOrder, generateMenuIte
 
                                 <Grid2 size="grow" sx={{display: 'flex', justifyContent: 'flex-end'}}>
                                     <Typography color="text.primary">
-                                        €{productSummary?.subTotal.toFixed(2)}
+                                        €{products?.subTotal.toFixed(2)}
                                     </Typography>
                                 </Grid2>
                             </Grid2>
 
-                            {productSummary?.discountAmount > 0 && (
-                                <Grid2 container spacing={2} sx={{ marginTop: 1 }} key={productSummary.productId}>
+                            {products?.discount && products?.discount.amount > 0 && (
+                                <Grid2 container spacing={2} sx={{ marginTop: 1 }} key={products.productId}>
                                     <Grid2 size={6} sx={{display: 'flex', justifyContent: 'flex-start', marginLeft: 7}}>
                                         <Typography color="text.secondary" fontStyle="italic">
-                                            Korting toegepast ({prod.discount.discount}%):
+                                            Korting toegepast ({prod.discount.percent}%):
                                         </Typography>
                                     </Grid2>
                                     <Grid2 size="grow" sx={{display: 'flex', justifyContent: 'flex-end'}}>
                                         <Typography color="success.light" fontStyle="italic">
-                                            -€{productSummary.discountAmount.toFixed(2)}
+                                            -€{products.discount.amount.toFixed(2)}
                                         </Typography>
                                     </Grid2>
                                 </Grid2>

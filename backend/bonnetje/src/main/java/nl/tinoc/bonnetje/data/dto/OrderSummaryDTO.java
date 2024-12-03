@@ -3,65 +3,19 @@ package nl.tinoc.bonnetje.data.dto;
 import java.util.List;
 
 public class OrderSummaryDTO {
-    private double totalAmount;
-    private double vatHigh;
-    private double vatLow;
-    private double vatTotalHigh;
-    private double vatTotalLow;
     private double finalPrice;
-    private List<ProductSummaryDTO> productSummaries;
+    private double totalAmount;
+    private VatCalculationDTO vatCalculation;
+    private List<ProductDTO> products;
 
     public OrderSummaryDTO() {
     }
 
-    public OrderSummaryDTO(double totalAmount, double vatLow, double vatHigh, double vatTotalHigh, double vatTotalLow, double finalPrice, List<ProductSummaryDTO> productSummaries) {
-        this.totalAmount = totalAmount;
-        this.vatHigh = vatHigh;
-        this.vatLow = vatLow;
-        this.vatTotalHigh = vatTotalHigh;
-        this.vatTotalLow = vatTotalLow;
+    public OrderSummaryDTO(double finalPrice, double totalAmount, VatCalculationDTO vatCalculation, List<ProductDTO> products) {
         this.finalPrice = finalPrice;
-        this.productSummaries = productSummaries;
-    }
-
-    public double getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
-    }
-
-    public double getVatHigh() {
-        return vatHigh;
-    }
-
-    public void setVatHigh(double vatHigh) {
-        this.vatHigh = vatHigh;
-    }
-
-    public double getVatLow() {
-        return vatLow;
-    }
-
-    public void setVatLow(double vatLow) {
-        this.vatLow = vatLow;
-    }
-
-    public double getVatTotalHigh() {
-        return vatTotalHigh;
-    }
-
-    public void setVatTotalHigh(double vatTotalHigh) {
-        this.vatTotalHigh = vatTotalHigh;
-    }
-
-    public double getVatTotalLow() {
-        return vatTotalLow;
-    }
-
-    public void setVatTotalLow(double vatTotalLow) {
-        this.vatTotalLow = vatTotalLow;
+        this.vatCalculation = vatCalculation;
+        this.products = products;
     }
 
     public double getFinalPrice() {
@@ -72,11 +26,27 @@ public class OrderSummaryDTO {
         this.finalPrice = finalPrice;
     }
 
-    public List<ProductSummaryDTO> getProductSummaries() {
-        return productSummaries;
+    public double getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setProductSummaries(List<ProductSummaryDTO> productSummaries) {
-        this.productSummaries = productSummaries;
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public VatCalculationDTO getVatCalculation() {
+        return vatCalculation;
+    }
+
+    public void setVatCalculation(VatCalculationDTO vatCalculation) {
+        this.vatCalculation = vatCalculation;
+    }
+
+    public List<ProductDTO> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductDTO> products) {
+        this.products = products;
     }
 }

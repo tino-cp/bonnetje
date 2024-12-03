@@ -2,6 +2,7 @@ package nl.tinoc.bonnetje.data.dao;
 
 import nl.tinoc.bonnetje.data.domain.Discount;
 import nl.tinoc.bonnetje.data.domain.Product;
+import nl.tinoc.bonnetje.data.domain.Vat;
 import nl.tinoc.bonnetje.exception.DatabaseException;
 
 import java.sql.*;
@@ -42,10 +43,12 @@ public class ProductDAOImpl implements ProductDAO {
 
     private Product createProductFromResultSet(ResultSet resultSet) throws SQLException {
         Product product = new Product();
-        product.setId(resultSet.getInt("product_id"));
+        product.setProductId(resultSet.getInt("product_id"));
         product.setName(resultSet.getString("product_naam"));
         product.setPrice(resultSet.getDouble("prijs"));
-        product.setVat(resultSet.getInt("btw_perc"));
+
+        Vat vat = createProductVatFromResultSet(resultSet);
+        product.setVat(vat);
 
         Discount discount = createProductDiscountFromResultSet(resultSet);
         product.setDiscount(discount);
@@ -53,14 +56,19 @@ public class ProductDAOImpl implements ProductDAO {
         return product;
     }
 
+    private Vat createProductVatFromResultSet(ResultSet resultSet) throws SQLException {
+        Vat vat = new Vat();
+        vat.setPercent(resultSet.getInt("btw_perc"));
+        return vat;
+    }
+
     private Discount createProductDiscountFromResultSet(ResultSet resultSet) throws SQLException {
         int minQuantity = resultSet.getInt("min_aantal");
 
         if (minQuantity > 0) {
             Discount discount = new Discount();
-            discount.setProductId(resultSet.getInt("product_id"));
-            discount.setQuantity(minQuantity);
-            discount.setDiscountPercentage(resultSet.getDouble("korting_perc"));
+            discount.setMinQuantity(minQuantity);
+            discount.setPercent(resultSet.getInt("korting_perc"));
             return discount;
         }
         return null;

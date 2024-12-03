@@ -3,7 +3,7 @@ import {Box, Typography, Divider, Grid2} from '@mui/material';
 
 function OrderFooter({ orderResponse }) {
     return (
-        <Box sx={{marginTop: 2}} key={orderResponse?.productSummaries?.productId}>
+        <Box sx={{marginTop: 2}} key={orderResponse?.products?.id}>
             <Box sx={{display: 'flex', justifyContent: 'space-between', marginY: 3}}>
                 <Typography variant="h6" color="text.primary" fontWeight="bold">
                     Subtotaal:
@@ -46,13 +46,13 @@ function OrderFooter({ orderResponse }) {
 
                 <Grid2 size="grow" sx={{display: 'flex', justifyContent: 'center'}}>
                     <Typography color="text.secondary">
-                        €{orderResponse?.vatLow.toFixed(2)}
+                        €{orderResponse?.vatCalculation.low.amount.toFixed(2)}
                     </Typography>
                 </Grid2>
 
                 <Grid2 size="grow" sx={{display: 'flex', justifyContent: 'flex-end'}}>
                     <Typography color="text.secondary">
-                        €{orderResponse?.vatTotalLow.toFixed(2)}
+                        €{orderResponse?.vatCalculation.low.priceSubTotal.toFixed(2)}
                     </Typography>
                 </Grid2>
             </Grid2>
@@ -66,13 +66,13 @@ function OrderFooter({ orderResponse }) {
 
                 <Grid2 size="grow" sx={{display: 'flex', justifyContent: 'center'}}>
                     <Typography color="text.secondary">
-                        €{orderResponse?.vatHigh.toFixed(2)}
+                        €{orderResponse?.vatCalculation.high.amount.toFixed(2)}
                     </Typography>
                 </Grid2>
 
                 <Grid2 size="grow" sx={{display: 'flex', justifyContent: 'flex-end'}}>
                     <Typography color="text.secondary">
-                        €{orderResponse?.vatTotalHigh.toFixed(2)}
+                        €{orderResponse?.vatCalculation.high.priceSubTotal.toFixed(2)}
                     </Typography>
                 </Grid2>
             </Grid2>
@@ -88,13 +88,13 @@ function OrderFooter({ orderResponse }) {
 
                 <Grid2 size="grow" sx={{display: 'flex', justifyContent: 'center'}}>
                     <Typography color="text.primary" fontWeight="bold">
-                        €{(orderResponse?.vatLow + orderResponse?.vatHigh).toFixed(2)}
+                        €{orderResponse?.vatCalculation.total.toFixed(2)}
                     </Typography>
                 </Grid2>
 
                 <Grid2 size="grow" sx={{display: 'flex', justifyContent: 'flex-end'}}>
                     <Typography color="text.primary" fontWeight="bold">
-                        €{(orderResponse?.vatTotalLow + orderResponse?.vatTotalHigh).toFixed(2)}
+                        €{orderResponse?.vatCalculation.priceTotal.toFixed(2)}
                     </Typography>
                 </Grid2>
             </Grid2>

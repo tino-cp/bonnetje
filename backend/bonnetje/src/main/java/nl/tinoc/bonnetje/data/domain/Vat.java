@@ -1,17 +1,15 @@
-package nl.tinoc.bonnetje.data.dto;
+package nl.tinoc.bonnetje.data.domain;
 
-public class DiscountDTO {
+public class Vat {
     private int percent;
     private double amount;
-    private int minQuantity;
 
-    public DiscountDTO() {
+    public Vat() {
     }
 
-    public DiscountDTO(int percent, double amount, int minQuantity) {
+    public Vat(int percent, double amount) {
         this.percent = percent;
         this.amount = amount;
-        this.minQuantity = minQuantity;
     }
 
     public int getPercent() {
@@ -28,13 +26,5 @@ public class DiscountDTO {
 
     public void setAmount(double amount) {
         this.amount = amount;
-    }
-
-    public int getMinQuantity() {
-        return minQuantity;
-    }
-
-    public void setMinQuantity(int minQuantity) {
-        this.minQuantity = minQuantity;
     }
 }
