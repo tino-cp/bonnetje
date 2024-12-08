@@ -20,51 +20,58 @@ public class OrderServiceImpl implements OrderService {
         try {
             List<ProductDTO> products = orderDTO.getProducts();
             BigDecimal totalAmount = BigDecimal.ZERO;
-            BigDecimal vatHigh = BigDecimal.ZERO;
-            BigDecimal vatLow = BigDecimal.ZERO;
+            BigDecimal vatAmountHigh = BigDecimal.ZERO;
+            BigDecimal vatAmountLow = BigDecimal.ZERO;
             BigDecimal priceSubTotalHigh = BigDecimal.ZERO;
             BigDecimal priceSubTotalLow = BigDecimal.ZERO;
 
             for (ProductDTO product : products) {
                 BigDecimal price = BigDecimal.valueOf(product.getPrice());
-                BigDecimal originalTotal = price.multiply(BigDecimal.valueOf(product.getQuantity()));
+                BigDecimal originalSubTotal = price.multiply(BigDecimal.valueOf(product.getQuantity()));
 
-                BigDecimal discountAmount = calculateDiscount(product, originalTotal);
-                BigDecimal subTotal = originalTotal.subtract(discountAmount).setScale(2, RoundingMode.HALF_UP);
+                BigDecimal discountAmount = calculateDiscount(product, originalSubTotal);
+                BigDecimal subTotal = originalSubTotal.subtract(discountAmount).setScale(2, RoundingMode.HALF_UP);
+                product.setSubTotal(subTotal.doubleValue());
+
+                totalAmount = totalAmount.add(subTotal);
 
                 BigDecimal vatRate = BigDecimal.valueOf(product.getVat().getPercent()).divide(BigDecimal.valueOf(100));
                 BigDecimal vatAmount = subTotal.multiply(vatRate).setScale(2, RoundingMode.HALF_UP);
-
-                product.setSubTotal(subTotal.doubleValue());
-
-                DiscountDTO discount = product.getDiscount();
-                if (discount != null) {
-                    discount.setAmount(discountAmount.doubleValue());
-                    product.setDiscount(discount);
-                }
 
                 VatDTO vat = product.getVat();
                 vat.setAmount(vatAmount.doubleValue());
                 product.setVat(vat);
 
-                totalAmount = totalAmount.add(subTotal);
                 if (product.getVat().getPercent() == VAT_HIGH) {
-                    vatHigh = vatHigh.add(vatAmount);
+                    vatAmountHigh = vatAmountHigh.add(vatAmount);
                     priceSubTotalHigh = priceSubTotalHigh.add(subTotal);
                 } else if (product.getVat().getPercent() == VAT_LOW) {
-                    vatLow = vatLow.add(vatAmount);
+                    vatAmountLow = vatAmountLow.add(vatAmount);
                     priceSubTotalLow = priceSubTotalLow.add(subTotal);
                 }
             }
 
-            BigDecimal finalPrice = totalAmount.add(vatHigh).add(vatLow).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal finalPrice = totalAmount.add(vatAmountHigh).add(vatAmountLow).setScale(2, RoundingMode.HALF_UP);
 
-            VatCalculationDetailsDTO lowVatDetails = new VatCalculationDetailsDTO(vatLow.doubleValue(), priceSubTotalLow.doubleValue());
-            VatCalculationDetailsDTO highVatDetails = new VatCalculationDetailsDTO(vatHigh.doubleValue(), priceSubTotalHigh.doubleValue());
-            BigDecimal totalVat = vatLow.add(vatHigh);
+            VatCalculationDetailsDTO lowVatDetails = new VatCalculationDetailsDTO(
+                    vatAmountLow.doubleValue(),
+                    priceSubTotalLow.doubleValue()
+            );
+
+            VatCalculationDetailsDTO highVatDetails = new VatCalculationDetailsDTO(
+                    vatAmountHigh.doubleValue(),
+                    priceSubTotalHigh.doubleValue()
+            );
+
+            BigDecimal totalVat = vatAmountLow.add(vatAmountHigh);
             BigDecimal priceTotal = priceSubTotalHigh.add(priceSubTotalLow);
 
-            VatCalculationDTO vatSummary = new VatCalculationDTO(lowVatDetails, highVatDetails, totalVat.doubleValue(), priceTotal.doubleValue());
+            VatCalculationDTO vatSummary = new VatCalculationDTO(
+                    lowVatDetails,
+                    highVatDetails,
+                    totalVat.doubleValue(),
+                    priceTotal.doubleValue()
+            );
 
             return new OrderSummaryDTO(
                     finalPrice.doubleValue(),
@@ -81,7 +88,13 @@ public class OrderServiceImpl implements OrderService {
     private BigDecimal calculateDiscount(ProductDTO product, BigDecimal originalTotal) {
         if (product.getDiscount() != null && product.getQuantity() >= product.getDiscount().getMinQuantity()) {
             BigDecimal discount = BigDecimal.valueOf(product.getDiscount().getPercent()).divide(BigDecimal.valueOf(100));
-            return originalTotal.multiply(discount).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal discountAmount = originalTotal.multiply(discount).setScale(2, RoundingMode.HALF_UP);
+
+            DiscountDTO discountDTO = product.getDiscount();
+            discountDTO.setAmount(discountAmount.doubleValue());
+            product.setDiscount(discountDTO);
+
+            return discountAmount;
         }
         return BigDecimal.ZERO;
     }
